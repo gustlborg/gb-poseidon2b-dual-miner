@@ -2,7 +2,7 @@
 
 **GB Poseidon2b Dual Miner** mines **NOID** (Parano1d) and **JTM** (Jetsam) on the same NVIDIA GPU at the same time — RTX 30/40/50, Linux, Windows and HiveOS.
 
-NOID keeps full priority on the GPU; the Jetsam memory walk runs alongside it in the time NOID leaves free. On an RTX 5070 Ti that is NOID 106 MH/s plus JTM about 5 kH/s (NOID alone: 108 MH/s). Without the Jetsam options it is a plain NOID miner.
+NOID keeps full priority on the GPU; the Jetsam memory walk runs alongside it in the time NOID leaves free. On an RTX 5070 Ti that is NOID 106 MH/s plus JTM about 5 kH/s (NOID alone: 108 MH/s). It also runs as a plain NOID miner — see [NOID only](#noid-only).
 
 **Current release: v1.0.0**
 
@@ -41,6 +41,14 @@ Every archive carries a `SHA256SUMS` for the files inside it, and the `SHA256SUM
 
 HiveOS derives the miner name from the archive's file name, so use exactly this URL and `gb-poseidon2b-dual`. HiveOS shows NOID and Jetsam as first and second algorithm.
 
+## NOID only
+
+Leave out `--jtm-pool` and `--jtm-wallet` (HiveOS: `JTM_POOL` and `JTM_WALLET`) and the miner mines NOID alone, at the full NOID hashrate, with memory-clock autotune available and only the NOID developer fee:
+
+```
+./gb-poseidon2b-dual-miner cuda-mine --pool innovlab --coinbase <your-o1-address> --worker rig0 --search-binary ./gb-poseidon2b-dual-engine
+```
+
 ## Pools
 
 | | Keywords | Other pools |
@@ -68,7 +76,7 @@ RTX 30/40/50 mine both coins. Other NVIDIA GPUs with compute capability 8.0 or n
 
 ## Developer fees
 
-3 % NOID and 3 % JTM, each mined in its own pool session. Details are in the README of each package.
+3 % NOID and 3 % JTM, each mined in its own pool session; in NOID-only mode only the NOID fee. Details are in the README of each package.
 
 ## License
 
