@@ -1,0 +1,77 @@
+GB Poseidon2b Dual Miner — Proprietary Software License
+Copyright 2026 gustlborg. All rights reserved.
+
+This is a legal agreement between you and gustlborg ("we", "us") for the
+GB Poseidon2b Dual Miner software, including its binaries, kernels, and accompanying
+files (the "Software"). By installing, copying, or running the Software you
+accept this License. If you do not accept it, do not use the Software.
+
+1. LICENSE GRANT
+   We grant you a personal, non-exclusive, non-transferable, revocable
+   license to install and run the Software in unmodified form for the sole
+   purpose of mining the Parano1d (NOID) and Jetsam (JTM) proofs of work. No
+   rights are granted except those expressly stated here.
+
+2. RESTRICTIONS
+   Except to the extent a given restriction is prohibited by applicable
+   mandatory law, you may not, in whole or in part:
+   (a) reverse engineer, decompile, disassemble, or otherwise attempt to
+       derive the source code, algorithms, design, or internal operation of
+       the Software;
+   (b) use any automated system to analyze, disassemble, decompile,
+       translate, observe, or reconstruct the Software or any part of it,
+       including debuggers, tracers, binary- or traffic-analysis tooling,
+       machine-learning systems, and large language models;
+   (c) modify, adapt, translate, or create derivative works of the Software;
+   (d) remove, disable, evade, or interfere with any integrity check, license
+       check, technical protection measure, or the developer fees;
+   (e) redistribute, publish, sell, sublicense, rent, lease, host, or
+       otherwise make the Software available to any third party;
+   (f) remove, obscure, or alter any copyright, license, or other proprietary
+       notice in or on the Software.
+
+3. DEVELOPER FEES
+   The Software mines disclosed developer fees, described in the accompanying
+   README. Running the Software constitutes acceptance of those fees. The fees
+   are part of the Software's operation and may not be removed or circumvented
+   (section 2(d)).
+
+4. OWNERSHIP
+   The Software is licensed, not sold. We retain all right, title, and
+   interest in and to the Software, including all intellectual property
+   rights. The Software's structure, organization, and code are our valuable
+   trade secrets and confidential information.
+
+5. THIRD-PARTY COMPONENTS
+   The Software incorporates third-party components that are used under their
+   own license terms. Those components are listed in the NOTICE file, and the
+   applicable license text is provided in LICENSE-THIRD-PARTY (Apache License,
+   Version 2.0). Those components remain governed by their respective
+   licenses, and nothing in this License restricts, or is intended to
+   restrict, any right you have under them.
+
+6. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF
+   ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+   OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+   YOU BEAR THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE.
+
+7. LIMITATION OF LIABILITY
+   TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, WE SHALL NOT BE LIABLE
+   FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES,
+   OR FOR ANY LOSS OF PROFITS, REVENUE, DATA, OR CRYPTOCURRENCY, ARISING OUT
+   OF OR RELATED TO THE SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+   DAMAGES.
+
+8. TERMINATION
+   This License terminates automatically, without notice, if you breach any
+   of its terms. On termination you must stop using the Software and destroy
+   all copies in your possession. Sections 4 through 7 survive termination.
+
+9. SEVERABILITY
+   If any provision of this License is held unenforceable, that provision
+   shall be limited or severed to the minimum extent necessary, and the
+   remaining provisions remain in full force.
+
+Nothing in this License is intended to exclude or limit any right that cannot
+be excluded or limited under applicable mandatory law.
