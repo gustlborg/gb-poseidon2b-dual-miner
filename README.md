@@ -101,7 +101,7 @@ Jetsam needs memory bandwidth — for dual mining leave the memory clock at the 
 ## Hardware
 
 - **RTX 30 / 40 / 50** — mine both coins, native per‑generation kernels.
-- **Hopper (H100 / H200)** — experimental: a native NOID kernel (about 150 MH/s on an H100), best run **NOID‑only** (the Jetsam walk cannot co‑reside well on Hopper).
+- **Hopper (H100 / H200)** — experimental, best run **NOID‑only**: a native NOID kernel reaches about 150 MH/s on an H100. On Hopper the Jetsam walk cannot co‑reside, so dual mining gains almost nothing and only costs NOID — leave the Jetsam options out and mine NOID alone.
 - Other NVIDIA GPUs with compute capability 8.0+ mine NOID via a portable kernel. **RTX 20‑series and older are not supported.**
 - Multi‑GPU: every supported card by default; `--devices 0,1` to choose.
 
