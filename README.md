@@ -4,10 +4,10 @@
 
 ![platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20Windows%20%7C%20HiveOS-blue)
 ![gpus](https://img.shields.io/badge/NVIDIA-RTX%2030%20%2F%2040%20%2F%2050%20%2B%20Hopper-76b900)
-![release](https://img.shields.io/badge/release-v1.2.0-informational)
+![release](https://img.shields.io/badge/release-v1.3.0-informational)
 ![license](https://img.shields.io/badge/license-proprietary-lightgrey)
 
-> **Current release: v1.2.0.** One download per platform, no CUDA Toolkit to install, just a current NVIDIA driver.
+> **Current release: v1.3.0.** One download per platform, no CUDA Toolkit to install, just a current NVIDIA driver.
 
 ---
 
@@ -29,7 +29,8 @@ A GPU mining NOID leaves most of its memory system idle — NOID is compute‑bo
 - **Two coins, one process, one command.** NOID on InnovLab / suprnova / any Parano1d pool (Stratum or HTTP); Jetsam on rplant or dongqn. Each coin gets its own worker and its own shares.
 - **NOID always has priority** — the Jetsam walk only uses what NOID leaves free, and backs off on its own.
 - **Dial it in.** `--jtm-intensity 1..16` sets Jetsam's share of GPU memory; the default fits your GPU and the miner lowers it by itself if memory is tight.
-- **New in 1.2.0: Jetsam balance for Hopper.** An H100 has far more room for Jetsam than an RTX card — `--jtm-balance 1..3` moves a chosen part of the GPU from NOID to Jetsam. See [Jetsam balance](#jetsam-balance-hopper).
+- **New in 1.3.0: live dashboard.** Both coins side by side in your terminal — pools, hashrates with rolling averages, shares, power and temperatures per GPU, and the log underneath. Press `n` or `j` to pause a coin, `q` to quit; it redraws to fit whenever you resize the window.
+- **Jetsam balance for Hopper.** An H100 has far more room for Jetsam than an RTX card — `--jtm-balance 1..3` moves a chosen part of the GPU from NOID to Jetsam. See [Jetsam balance](#jetsam-balance-hopper).
 - **Start without typing a command.** Put your wallets into the settings block of `start.bat` (Windows, then double-click) or `start.sh` (Linux, then `sh start.sh`).
 - **Runs as a plain NOID miner too** — leave the Jetsam options out and it's a full‑speed NOID miner with memory‑clock autotune. See [NOID only](#noid-only).
 - **One binary per platform, every generation.** RTX 30 / 40 / 50 and Hopper; a mixed‑GPU rig needs no separate build.
@@ -43,9 +44,9 @@ Grab the archive for your platform from [**Releases**](../../releases), unpack i
 
 | Platform | Archive |
 |---|---|
-| Linux | `gb-poseidon2b-dual-miner-1.2.0-linux.tar.gz` |
-| Windows | `gb-poseidon2b-dual-miner-1.2.0-windows.zip` |
-| HiveOS | `gb-poseidon2b-dual-1.2.0.tar.gz` (custom‑miner package) |
+| Linux | `gb-poseidon2b-dual-miner-1.3.0-linux.tar.gz` |
+| Windows | `gb-poseidon2b-dual-miner-1.3.0-windows.zip` |
+| HiveOS | `gb-poseidon2b-dual-1.3.0.tar.gz` (custom‑miner package) |
 
 Each archive carries a `SHA256SUMS`; the release's own `SHA256SUMS` lists the archives. The Linux and HiveOS binaries run on any 64‑bit Linux with glibc 2.31 or newer.
 
@@ -68,7 +69,7 @@ start.bat --pool innovlab --coinbase <your-o1-address> --worker rig0 --jtm-pool 
 
 **HiveOS** — Flight Sheet → Custom miner:
 - Miner name: `gb-poseidon2b-dual`
-- Installation URL: `https://github.com/gustlborg/gb-poseidon2b-dual-miner/releases/download/v1.2.0/gb-poseidon2b-dual-1.2.0.tar.gz`
+- Installation URL: `https://github.com/gustlborg/gb-poseidon2b-dual-miner/releases/download/v1.3.0/gb-poseidon2b-dual-1.3.0.tar.gz`
 - Wallet: your `o1...` address; pool address in the Pool field
 - Custom user config: `JTM_POOL=rplant` and `JTM_WALLET=j1...` (one per line; on Hopper optionally `JTM_BALANCE=1..3`)
 
