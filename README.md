@@ -4,10 +4,10 @@
 
 ![platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20Windows%20%7C%20HiveOS-blue)
 ![gpus](https://img.shields.io/badge/NVIDIA-RTX%2030%20%2F%2040%20%2F%2050%20%2B%20Hopper-76b900)
-![release](https://img.shields.io/badge/release-v1.1.0-informational)
+![release](https://img.shields.io/badge/release-v1.2.0-informational)
 ![license](https://img.shields.io/badge/license-proprietary-lightgrey)
 
-> **Current release: v1.1.0** (pre‑release — Hopper support is experimental). One download per platform, no CUDA Toolkit to install, just a current NVIDIA driver.
+> **Current release: v1.2.0.** One download per platform, no CUDA Toolkit to install, just a current NVIDIA driver.
 
 ---
 
@@ -18,38 +18,44 @@ A GPU mining NOID leaves most of its memory system idle — NOID is compute‑bo
 | GPU | NOID (dual) | + Jetsam (dual) | NOID alone |
 |---|---|---|---|
 | RTX 5070 Ti | ~106 MH/s | ~5 kH/s | ~108 MH/s |
+| RTX 4080 SUPER | ~103 MH/s | ~3.7 kH/s | — |
 | RTX 3060 | ~26 MH/s | ~1.5 kH/s | ~28 MH/s |
-| H100 (NOID‑only) | ~150 MH/s | — | ~150 MH/s |
+| H100 NVL, `--jtm-balance 3` | ~96 MH/s | ~20.6 kH/s | ~150 MH/s |
 
-*Measured with the release kernels. Your numbers depend on the card, clocks and pool.*
+*Measured with the release kernels. Your numbers depend on the card, clocks, power limit and pool.*
 
 ## Highlights
 
 - **Two coins, one process, one command.** NOID on InnovLab / suprnova / any Parano1d pool (Stratum or HTTP); Jetsam on rplant or dongqn. Each coin gets its own worker and its own shares.
 - **NOID always has priority** — the Jetsam walk only uses what NOID leaves free, and backs off on its own.
-- **Dial it in.** `--jtm-intensity 1..16` trades a little NOID for more Jetsam; the default fits your GPU and the miner lowers it by itself if memory is tight.
+- **Dial it in.** `--jtm-intensity 1..16` sets Jetsam's share of GPU memory; the default fits your GPU and the miner lowers it by itself if memory is tight.
+- **New in 1.2.0: Jetsam balance for Hopper.** An H100 has far more room for Jetsam than an RTX card — `--jtm-balance 1..3` moves a chosen part of the GPU from NOID to Jetsam. See [Jetsam balance](#jetsam-balance-hopper).
+- **Start with one line.** Put your wallets into the settings block of `start.sh` and run `sh start.sh` (Linux).
 - **Runs as a plain NOID miner too** — leave the Jetsam options out and it's a full‑speed NOID miner with memory‑clock autotune. See [NOID only](#noid-only).
-- **One binary per platform, every generation.** RTX 30 / 40 / 50 mine both coins; a mixed‑GPU rig needs no separate build.
+- **One binary per platform, every generation.** RTX 30 / 40 / 50 and Hopper; a mixed‑GPU rig needs no separate build.
 - **HiveOS‑native.** Installs as a custom miner and reports NOID and Jetsam as two algorithms with their own hashrates and shares.
-- **Clean two‑section live display** of both coins — pool, wallet, hashrate, rolling averages and shares, side by side.
 
 ---
 
 ## Download
 
-Grab the archive for your platform from [**Releases**](../../releases/latest), unpack it, and run it from inside the folder.
+Grab the archive for your platform from [**Releases**](../../releases), unpack it, and run it from inside the folder.
 
 | Platform | Archive |
 |---|---|
-| Linux | `gb-poseidon2b-dual-miner-1.1.0-linux.tar.gz` |
-| Windows | `gb-poseidon2b-dual-miner-1.1.0-windows.zip` |
-| HiveOS | `gb-poseidon2b-dual-1.1.0.tar.gz` (custom‑miner package) |
+| Linux | `gb-poseidon2b-dual-miner-1.2.0-linux.tar.gz` |
+| Windows | `gb-poseidon2b-dual-miner-1.2.0-windows.zip` |
+| HiveOS | `gb-poseidon2b-dual-1.2.0.tar.gz` (custom‑miner package) |
 
 Each archive carries a `SHA256SUMS`; the release's own `SHA256SUMS` lists the archives. The Linux and HiveOS binaries run on any 64‑bit Linux with glibc 2.31 or newer.
 
 ## Quick start
 
-**Linux**
+**Linux** — open `start.sh` in a text editor, fill in `WALLET="o1..."` and `JTM_WALLET="j1..."` (optionally `WORKER`), then:
+```
+sh start.sh
+```
+or pass everything yourself:
 ```
 ./gb-poseidon2b-dual-miner cuda-mine --pool innovlab --coinbase <your-o1-address> --worker rig0 \
     --jtm-pool rplant --jtm-wallet <your-j1-address> --jtm-worker rig0 --search-binary ./gb-poseidon2b-dual-engine
@@ -57,21 +63,20 @@ Each archive carries a `SHA256SUMS`; the release's own `SHA256SUMS` lists the ar
 
 **Windows**
 ```
-./gb-poseidon2b-dual-miner.exe cuda-mine --pool innovlab --coinbase <your-o1-address> --worker rig0 --jtm-pool rplant --jtm-wallet <your-j1-address> --jtm-worker rig0 --search-binary gb-poseidon2b-dual-engine.exe
+start.bat --pool innovlab --coinbase <your-o1-address> --worker rig0 --jtm-pool rplant --jtm-wallet <your-j1-address> --jtm-worker rig0
 ```
-or simply `start.bat --pool innovlab --coinbase <o1> --worker rig0 --jtm-pool rplant --jtm-wallet <j1> --jtm-worker rig0`.
 
 **HiveOS** — Flight Sheet → Custom miner:
 - Miner name: `gb-poseidon2b-dual`
-- Installation URL: `https://github.com/gustlborg/gb-poseidon2b-dual-miner/releases/download/v1.1.0/gb-poseidon2b-dual-1.1.0.tar.gz`
+- Installation URL: `https://github.com/gustlborg/gb-poseidon2b-dual-miner/releases/download/v1.2.0/gb-poseidon2b-dual-1.2.0.tar.gz`
 - Wallet: your `o1...` address; pool address in the Pool field
-- Custom user config: `JTM_POOL=rplant` and `JTM_WALLET=j1...` (one per line)
+- Custom user config: `JTM_POOL=rplant` and `JTM_WALLET=j1...` (one per line; on Hopper optionally `JTM_BALANCE=1..3`)
 
 HiveOS derives the miner name from the file name, so use exactly this URL and `gb-poseidon2b-dual`.
 
 ## NOID only
 
-Leave out `--jtm-pool` and `--jtm-wallet` (HiveOS: `JTM_POOL` / `JTM_WALLET`) and it mines NOID alone at full hashrate, with memory‑clock autotune available and only the NOID developer fee:
+Leave out `--jtm-pool` and `--jtm-wallet` (HiveOS: `JTM_POOL` / `JTM_WALLET`; `start.sh`: leave `JTM_WALLET` empty) and it mines NOID alone at full hashrate, with memory‑clock autotune available and only the NOID developer fee:
 
 ```
 ./gb-poseidon2b-dual-miner cuda-mine --pool innovlab --coinbase <your-o1-address> --worker rig0 --search-binary ./gb-poseidon2b-dual-engine
@@ -88,7 +93,7 @@ A second NOID pool can be given with `--backup-pool` / `--backup-rpc` for automa
 
 ## Jetsam intensity
 
-`--jtm-intensity 1..16` (HiveOS: `JTM_INTENSITY`) sets how much of the GPU Jetsam gets:
+`--jtm-intensity 1..16` (HiveOS: `JTM_INTENSITY`) sets how much GPU memory Jetsam gets:
 
 | RTX 5070 Ti | Jetsam | NOID cost |
 |---|---|---|
@@ -98,10 +103,23 @@ A second NOID pool can be given with `--backup-pool` / `--backup-rpc` for automa
 
 Jetsam needs memory bandwidth — for dual mining leave the memory clock at the card's normal value.
 
+## Jetsam balance (Hopper)
+
+RTX cards already run Jetsam at their memory limit next to NOID. A Hopper GPU has far more room: by default it gives Jetsam only a sliver, and `--jtm-balance 0..3` (HiveOS: `JTM_BALANCE`) moves a chosen part of the card from NOID to Jetsam:
+
+| H100 NVL | NOID | Jetsam |
+|---|---|---|
+| `--jtm-balance 0` (default) | 143 MH/s | 1.3 kH/s |
+| `--jtm-balance 1` | 113 MH/s | 15.7 kH/s |
+| `--jtm-balance 2` | 99 MH/s | 18.5 kH/s |
+| `--jtm-balance 3` | 96 MH/s | 20.6 kH/s |
+
+On RTX 30 / 40 / 50 the option changes nothing and the miner says so.
+
 ## Hardware
 
 - **RTX 30 / 40 / 50** — mine both coins, native per‑generation kernels.
-- **Hopper (H100 / H200)** — experimental, best run **NOID‑only**: a native NOID kernel reaches about 150 MH/s on an H100. On Hopper the Jetsam walk cannot co‑reside, so dual mining gains almost nothing and only costs NOID — leave the Jetsam options out and mine NOID alone.
+- **Hopper** — native kernels, validated on the H100 NVL (the H200 / GH200 use the same architecture but have not been tested). NOID alone reaches about 150 MH/s on an H100; for a real Jetsam share use `--jtm-balance`.
 - Other NVIDIA GPUs with compute capability 8.0+ mine NOID via a portable kernel. **RTX 20‑series and older are not supported.**
 - Multi‑GPU: every supported card by default; `--devices 0,1` to choose.
 
@@ -113,4 +131,4 @@ A disclosed **3 % NOID** fee and **3 % JTM** fee, each mined in its own pool ses
 
 ## License
 
-Proprietary software, distributed as binaries only — see [LICENSE](LICENSE). Reverse engineering, decompilation, disassembly and analysis by automated systems (including large language models) are prohibited, except where such a prohibition is void under applicable mandatory law. Proof‑of‑work components used under the Apache License 2.0 are listed in each package's `NOTICE`.
+Proprietary software, distributed as binaries only — see [LICENSE](LICENSE). Reverse engineering, decompilation, disassembly and analysis by automated systems (including large language models) are prohibited, except where such a prohibition is void under applicable mandatory law. Third‑party components and their licenses are listed at the end of the same file.
