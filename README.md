@@ -30,7 +30,7 @@ A GPU mining NOID leaves most of its memory system idle — NOID is compute‑bo
 - **NOID always has priority** — the Jetsam walk only uses what NOID leaves free, and backs off on its own.
 - **Dial it in.** `--jtm-intensity 1..16` sets Jetsam's share of GPU memory; the default fits your GPU and the miner lowers it by itself if memory is tight.
 - **New in 1.2.0: Jetsam balance for Hopper.** An H100 has far more room for Jetsam than an RTX card — `--jtm-balance 1..3` moves a chosen part of the GPU from NOID to Jetsam. See [Jetsam balance](#jetsam-balance-hopper).
-- **Start with one line.** Put your wallets into the settings block of `start.sh` and run `sh start.sh` (Linux).
+- **Start without typing a command.** Put your wallets into the settings block of `start.bat` (Windows, then double-click) or `start.sh` (Linux, then `sh start.sh`).
 - **Runs as a plain NOID miner too** — leave the Jetsam options out and it's a full‑speed NOID miner with memory‑clock autotune. See [NOID only](#noid-only).
 - **One binary per platform, every generation.** RTX 30 / 40 / 50 and Hopper; a mixed‑GPU rig needs no separate build.
 - **HiveOS‑native.** Installs as a custom miner and reports NOID and Jetsam as two algorithms with their own hashrates and shares.
@@ -61,7 +61,7 @@ or pass everything yourself:
     --jtm-pool rplant --jtm-wallet <your-j1-address> --jtm-worker rig0 --search-binary ./gb-poseidon2b-dual-engine
 ```
 
-**Windows**
+**Windows** — right-click `start.bat` → Edit, fill in `WALLET` and `JTM_WALLET` (optionally `WORKER`) at the top, save, then double-click `start.bat`. Or from a console:
 ```
 start.bat --pool innovlab --coinbase <your-o1-address> --worker rig0 --jtm-pool rplant --jtm-wallet <your-j1-address> --jtm-worker rig0
 ```
