@@ -37,6 +37,10 @@ A GPU mining NOID leaves most of its memory system idle — NOID is compute‑bo
 - **One binary per platform, every generation.** RTX 30 / 40 / 50 and Hopper; a mixed‑GPU rig needs no separate build.
 - **HiveOS‑native.** Installs as a custom miner and reports NOID and Jetsam as two algorithms with their own hashrates and shares.
 
+![The dashboard on Windows: NOID and Jetsam side by side on an RTX 4070 Laptop GPU](images/dashboard-windows.png)
+
+*Windows, RTX 4070 Laptop GPU, v1.3.1: NOID 50.4 MH/s and Jetsam 2.0 kH/s at the same time.*
+
 ---
 
 ## Download
