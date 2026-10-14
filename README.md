@@ -99,9 +99,9 @@ A second NOID pool can be given with `--backup-pool` / `--backup-rpc` for automa
 
 | RTX 5070 Ti | Jetsam | NOID cost |
 |---|---|---|
-| intensity 1 | 2.0 kH/s | −0.2 % |
-| intensity 2 | 3.7 kH/s | −0.5 % |
-| intensity 8 (default) | 4.9 kH/s | −1.9 % |
+| intensity 1 | 4.7 kH/s | −4.4 % |
+| intensity 2 | 4.8 kH/s | −4.7 % |
+| intensity 8 (default) | 5.2 kH/s | −5.4 % |
 
 Jetsam needs memory bandwidth — for dual mining leave the memory clock at the card's normal value.
 
