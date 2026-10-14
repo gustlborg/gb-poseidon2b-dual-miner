@@ -20,7 +20,7 @@ A GPU mining NOID leaves most of its memory system idle — NOID is compute‑bo
 | RTX 5070 Ti | ~116 MH/s | ~5.2 kH/s | ~122 MH/s |
 | RTX 4080 SUPER | ~113 MH/s | ~4.0 kH/s | ~123 MH/s |
 | RTX 3060 | ~28 MH/s | ~1.8 kH/s | ~31 MH/s |
-| H100 NVL, `--jtm-balance 3` | ~256 MH/s | ~22.5 kH/s | ~382 MH/s |
+| H100 NVL (default level 2) | ~275 MH/s | ~19.2 kH/s | ~382 MH/s |
 
 *Measured with the release kernels (H100 with a 400 W power limit; the card's default is 310 W). Your numbers depend on the card, clocks, power limit and pool.*
 
@@ -31,7 +31,7 @@ A GPU mining NOID leaves most of its memory system idle — NOID is compute‑bo
 - **Dial it in.** `--jtm-intensity 1..16` sets Jetsam's share of GPU memory; the default fits your GPU and the miner lowers it by itself if memory is tight.
 - **New in 1.3.0: faster NOID kernels** — about +11–13 % NOID on RTX 30 / 40 / 50 and about 2.5× on the H100, from the NOID miner 2.18.4.
 - **New in 1.3.0: live dashboard.** Both coins side by side in your terminal — pools, hashrates with rolling averages, shares, power and temperatures per GPU, and the log underneath. Press `n` or `j` to pause a coin, `q` to quit; it redraws to fit whenever you resize the window.
-- **Jetsam balance for Hopper.** An H100 has far more room for Jetsam than an RTX card — `--jtm-balance 1..3` moves a chosen part of the GPU from NOID to Jetsam. See [Jetsam balance](#jetsam-balance-hopper).
+- **Jetsam balance for Hopper.** An H100 has far more room for Jetsam than an RTX card — `--jtm-balance 0..3` sets the split between NOID and Jetsam (level 2 by default). See [Jetsam balance](#jetsam-balance-hopper).
 - **Start without typing a command.** Put your wallets into the settings block of `start.bat` (Windows, then double-click) or `start.sh` (Linux, then `sh start.sh`).
 - **Runs as a plain NOID miner too** — leave the Jetsam options out and it's a full‑speed NOID miner with memory‑clock autotune. See [NOID only](#noid-only).
 - **One binary per platform, every generation.** RTX 30 / 40 / 50 and Hopper; a mixed‑GPU rig needs no separate build.
@@ -72,7 +72,7 @@ start.bat --pool innovlab --coinbase <your-o1-address> --worker rig0 --jtm-pool 
 - Miner name: `gb-poseidon2b-dual`
 - Installation URL: `https://github.com/gustlborg/gb-poseidon2b-dual-miner/releases/download/v1.3.0/gb-poseidon2b-dual-1.3.0.tar.gz`
 - Wallet: your `o1...` address; pool address in the Pool field
-- Custom user config: `JTM_POOL=rplant` and `JTM_WALLET=j1...` (one per line; on Hopper optionally `JTM_BALANCE=1..3`)
+- Custom user config: `JTM_POOL=rplant` and `JTM_WALLET=j1...` (one per line; on Hopper optionally `JTM_BALANCE=0..3`, default 2)
 
 HiveOS derives the miner name from the file name, so use exactly this URL and `gb-poseidon2b-dual`.
 
@@ -107,13 +107,13 @@ Jetsam needs memory bandwidth — for dual mining leave the memory clock at the 
 
 ## Jetsam balance (Hopper)
 
-RTX cards already run Jetsam at their memory limit next to NOID. A Hopper GPU has far more room, but by default NOID takes all of it; `--jtm-balance 0..3` (HiveOS: `JTM_BALANCE`) moves a chosen part of the card from NOID to Jetsam:
+RTX cards already run Jetsam at their memory limit next to NOID. A Hopper GPU has far more room, and `--jtm-balance 0..3` (HiveOS: `JTM_BALANCE`) chooses how it is split between NOID and Jetsam — without the option the miner runs level 2 on Hopper:
 
 | H100 NVL (400 W) | NOID | Jetsam |
 |---|---|---|
-| `--jtm-balance 0` (default) | 362 MH/s | 0.2 kH/s |
+| `--jtm-balance 0` | 362 MH/s | 0.2 kH/s |
 | `--jtm-balance 1` | 307 MH/s | 13.8 kH/s |
-| `--jtm-balance 2` | 275 MH/s | 19.2 kH/s |
+| `--jtm-balance 2` (default on Hopper) | 275 MH/s | 19.2 kH/s |
 | `--jtm-balance 3` | 256 MH/s | 22.5 kH/s |
 
 On RTX 30 / 40 / 50 the option changes nothing and the miner says so.
@@ -121,7 +121,7 @@ On RTX 30 / 40 / 50 the option changes nothing and the miner says so.
 ## Hardware
 
 - **RTX 30 / 40 / 50** — mine both coins, native per‑generation kernels.
-- **Hopper** — native kernels, validated on the H100 NVL (the H200 / GH200 use the same architecture but have not been tested). NOID alone reaches about 380 MH/s on an H100 NVL; for a real Jetsam share use `--jtm-balance`.
+- **Hopper** — native kernels, validated on the H100 NVL (the H200 / GH200 use the same architecture but have not been tested). NOID alone reaches about 380 MH/s on an H100 NVL; in dual mode it runs `--jtm-balance` level 2 unless you choose another.
 - Other NVIDIA GPUs with compute capability 8.0+ mine NOID via a portable kernel. **RTX 20‑series and older are not supported.**
 - Multi‑GPU: every supported card by default; `--devices 0,1` to choose.
 
