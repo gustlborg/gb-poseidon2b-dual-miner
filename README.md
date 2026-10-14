@@ -4,10 +4,10 @@
 
 ![platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20Windows%20%7C%20HiveOS-blue)
 ![gpus](https://img.shields.io/badge/NVIDIA-RTX%2030%20%2F%2040%20%2F%2050%20%2B%20Hopper-76b900)
-![release](https://img.shields.io/badge/release-v1.3.1-informational)
+![release](https://img.shields.io/badge/release-v1.3.2-informational)
 ![license](https://img.shields.io/badge/license-proprietary-lightgrey)
 
-> **Current release: v1.3.1.** One download per platform, no CUDA Toolkit to install, just an NVIDIA driver 580 or newer.
+> **Current release: v1.3.2.** One download per platform, no CUDA Toolkit to install, just an NVIDIA driver 580 or newer.
 
 ---
 
@@ -45,9 +45,9 @@ Grab the archive for your platform from [**Releases**](../../releases), unpack i
 
 | Platform | Archive |
 |---|---|
-| Linux | `gb-poseidon2b-dual-miner-1.3.1-linux.tar.gz` |
-| Windows | `gb-poseidon2b-dual-miner-1.3.1-windows.zip` |
-| HiveOS | `gb-poseidon2b-dual-1.3.1.tar.gz` (custom‑miner package) |
+| Linux | `gb-poseidon2b-dual-miner-1.3.2-linux.tar.gz` |
+| Windows | `gb-poseidon2b-dual-miner-1.3.2-windows.zip` |
+| HiveOS | `gb-poseidon2b-dual-1.3.2.tar.gz` (custom‑miner package) |
 
 Each archive carries a `SHA256SUMS`; the release's own `SHA256SUMS` lists the archives. The Linux and HiveOS binaries run on any 64‑bit Linux with glibc 2.31 or newer.
 
@@ -70,7 +70,7 @@ start.bat --pool innovlab --coinbase <your-o1-address> --worker rig0 --jtm-pool 
 
 **HiveOS** — Flight Sheet → Custom miner:
 - Miner name: `gb-poseidon2b-dual`
-- Installation URL: `https://github.com/gustlborg/gb-poseidon2b-dual-miner/releases/download/v1.3.1/gb-poseidon2b-dual-1.3.1.tar.gz`
+- Installation URL: `https://github.com/gustlborg/gb-poseidon2b-dual-miner/releases/download/v1.3.2/gb-poseidon2b-dual-1.3.2.tar.gz`
 - Wallet: your `o1...` address; pool address in the Pool field
 - Custom user config: `JTM_POOL=rplant` and `JTM_WALLET=j1...` (one per line; on Hopper optionally `JTM_BALANCE=0..3`, default 2)
 
@@ -125,7 +125,7 @@ On RTX 30 / 40 / 50 the option changes nothing and the miner says so.
 - Other NVIDIA GPUs with compute capability 8.0+ mine NOID via a portable kernel. **RTX 20‑series and older are not supported.**
 - Multi‑GPU: every supported card by default; `--devices 0,1` to choose.
 
-An NVIDIA driver 580 or newer (CUDA 13.0 support) is required — an older driver gets a message saying so; no CUDA Toolkit needed to run.
+An NVIDIA driver 580 or newer (CUDA 13.0 support) is required — an older driver gets a message saying so; on Linux, data‑centre and professional GPUs also run on an older driver with NVIDIA's CUDA 13 forward‑compatibility package. No CUDA Toolkit needed to run.
 
 ## Developer fees
 
